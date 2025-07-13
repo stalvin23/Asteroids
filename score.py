@@ -12,3 +12,6 @@ class ScoreDisplay:
         font = pygame.font.Font(None, 36)
         text_surface = font.render(f"Score: {self.score}", True, (255, 255, 255))
         screen.blit(text_surface, (10, 10))
+    
+    def reset(self):
+        self.score = 0
