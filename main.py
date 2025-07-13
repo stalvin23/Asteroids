@@ -61,6 +61,11 @@ def main():
                             game.state = GameState.PLAYING  # Start the game
                         elif game.menu_index == 1:
                             running = False
+            elif game.state == GameState.GAME_OVER:
+                game.draw_game_over_screen(score_manager)
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RETURN or pygame.K_SPACE:
+                        game.state = GameState.START
         
         #print(f"Game state: {game.state}")  
         if game.state == GameState.START:
@@ -73,7 +78,7 @@ def main():
                 if asteroid_instance.checkcollision(game.player) == True:
                     print("Game Over!")
                     print(score_manager.score)
-                    game.state = GameState.START
+                    game.state = GameState.GAME_OVER
             for asteroid_instance in asteroids:
                 for shot in shots:
                     if asteroid_instance.checkcollision(shot) == True:
@@ -86,7 +91,7 @@ def main():
             score_manager.draw(screen) 
             #.fill("black", rect=None, special_flags=0)
         elif game.state == GameState.GAME_OVER:
-            game.draw_title_screen()
+            game.draw_game_over_screen(score_manager)
             
         pygame.display.flip()
     
